@@ -1,40 +1,52 @@
-import dayjs from "dayjs"
+import dayjs from "dayjs";
+import { scheduleNew } from "../../services/schedule-new.js";
 
-const form = document.querySelector("form")
-const clientName = document.getElementById("client")
-const selectedDate = document.getElementById("date")
+const form = document.querySelector("form");
+const clientName = document.getElementById("client");
+const selectedDate = document.getElementById("date");
 
-const inputToday = dayjs(new Date()).format("YYYY-MM-DD")
+const inputToday = dayjs(new Date()).format("YYYY-MM-DD");
 
 // Carrega a data atual.
-selectedDate.value = dayjs(new Date()).format("YYYY-MM-DD")
+selectedDate.value = inputToday;
 
 // Define a data mínima como sendo a data atual.
-selectedDate.value = inputToday
-selectedDate.min = inputToday
+selectedDate.min = inputToday;
 
-form.onsubmit = (e) => {
-    e.preventDefault()
+form.onsubmit = async (e) => {
+  e.preventDefault();
 
   try {
-    const name = clientName.value.trim()
+    const name = clientName.value.trim();
 
-    if(!name) {
-        return alert("Informe o nome do cliente!")
+    if (!name) {
+      return alert("Informe o nome do cliente!");
     }
 
-    const hourSelected = document.querySelector('.hour-selected')
+    // Obtém o horário selecionado
+    const hourSelected = document.querySelector('.hour-selected');
 
-    if(!hourSelected) {
-        return alert("Selecione o horário")
+    if (!hourSelected) {
+      return alert("Selecione o horário");
     }
 
-    const [hour] = hourSelected.innerText.split(":")
+    const [hour] = hourSelected.innerText.split(":");
 
-    const when = dayjs(selectedDate.value).add(hour, "hour")
+    // Combina a data selecionada com a hora selecionada
+    const when = dayjs(selectedDate.value).set('hour', parseInt(hour)).startOf('hour');
 
-    const id = new Date().getTime()
+    // Gera um ID único para o agendamento
+    const id = new Date().getTime();
+
+    // Chama a função de criação do agendamento
+    await scheduleNew({
+      id,
+      name,
+      when: when.toISOString(), // Salva o valor de `when` no formato ISO
+    });
+
+    alert("Agendamento realizado com sucesso!");
   } catch (error) {
-    alert("Não foi possível realizar o agendamento.")
+    alert("Não foi possível realizar o agendamento.");
   }
-}
+};
