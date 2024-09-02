@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { scheduleNew } from "../../services/schedule-new.js";
+import { schedulesDay } from "../schedules/load.js"
 
 const form = document.querySelector("form");
 const clientName = document.getElementById("client");
@@ -44,6 +45,8 @@ form.onsubmit = async (e) => {
       name,
       when: when.toISOString(), // Salva o valor de `when` no formato ISO
     });
+
+    await schedulesDay()
 
     alert("Agendamento realizado com sucesso!");
   } catch (error) {
