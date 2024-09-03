@@ -1,0 +1,4 @@
+API para gerenciar ticket de suporte técnio, permitindo criar um ticket solicitand suporte,
+atualizar as informações do ticket, listar os tickets podendo filtrar pelo status e atualizar o status de 
+um ticket para fechado.
+
