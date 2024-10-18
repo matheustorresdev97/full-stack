@@ -1,6 +1,7 @@
 * {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
 }
 
 :root {
@@ -18,4 +19,8 @@
     --stroke-default: #D6D3D1;
     --stroke-default: #F3541C;
     --semantic-error: #DC2626;
+}
+
+body {
+    overflow: hidden;
 }
