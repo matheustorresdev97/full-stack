@@ -22,7 +22,7 @@
     --brand-color-secondary: 口#FC4A1A;
     --brand-color-primary: #f7b733;
     --brand-color-secondary: #fc4a1a;
-    
+
     --ff-sans: 'Inter', system-ui, sans-serif;
     --fw-base: 400;
     --fw-md: 500;
@@ -51,6 +51,7 @@ html {
 
 body {
     background-color: var(--bg-color);
+    overflow-x: hidden;
 }
 
 h1,
@@ -77,6 +78,15 @@ h3 {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+a:hover {
+    background: linear-gradient(90deg,
+            var(--brand-color-secondary) 0%,
+            var(--brand-color-primary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 ul[role='list'] {
